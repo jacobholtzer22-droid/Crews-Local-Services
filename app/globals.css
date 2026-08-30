@@ -2,26 +2,162 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Height of the fixed mobile CTA bar. Consumed by the body padding below so
+       page content is never trapped behind it (Layout §fixed-element-offset). */
+    --mobile-cta-h: 4.25rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Fixed header height + a little breathing room, so an in-page anchor never
+       lands with its heading tucked under the header. */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-sawdust font-sans text-base text-ink antialiased;
+    /* Reserve the mobile CTA bar's height at the end of the document. Removed at
+       md where the bar is not rendered. */
+    padding-bottom: var(--mobile-cta-h);
+  }
+
+  @screen md {
+    body {
+      padding-bottom: 0;
+    }
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-bold uppercase tracking-tight text-balance;
+  }
+
+  /* One visible focus treatment everywhere. Never removed — a contractor's customer
+     tabbing through a form with a cracked screen is a real person, not an edge case. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-blaze ring-offset-2 ring-offset-sawdust;
+  }
+
+  .on-bark :focus-visible {
+    @apply ring-offset-bark;
+  }
+
+  ::selection {
+    @apply bg-blaze text-bark;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* ── Layout ──────────────────────────────────────────────────────────────── */
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  /* ── Buttons ─────────────────────────────────────────────────────────────── */
+  /* min-h-[48px] not 44: 44 is the accessibility floor, 48 is comfortable for a
+     thumb on a phone held in a work glove. */
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded
+           px-6 py-3 font-display text-lg font-bold uppercase tracking-wide
+           transition-colors duration-200 cursor-pointer
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* bark text on blaze = 5.19:1. See tailwind.config.ts — do not switch to white. */
+  .btn-primary {
+    @apply btn bg-blaze text-bark hover:bg-blaze-hover;
+  }
+
+  .btn-secondary {
+    @apply btn border-2 border-bark bg-transparent text-bark hover:bg-bark hover:text-sawdust;
+  }
+
+  /* On dark backgrounds the outline flips. */
+  .btn-secondary-dark {
+    @apply btn border-2 border-sawdust/40 bg-transparent text-sawdust
+           hover:border-sawdust hover:bg-sawdust hover:text-bark;
+  }
+
+  /* ── Type ────────────────────────────────────────────────────────────────── */
+  .eyebrow {
+    @apply font-display text-sm font-bold uppercase tracking-[0.18em] text-moss;
+  }
+
+  /* On dark surfaces the eyebrow goes orange (5.19:1 on bark). */
+  .eyebrow-dark {
+    @apply font-display text-sm font-bold uppercase tracking-[0.18em] text-blaze;
+  }
+
+  .h-display {
+    @apply font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight
+           sm:text-5xl lg:text-6xl;
+  }
+
+  .h-section {
+    @apply font-display text-3xl font-bold uppercase leading-[1.02] tracking-tight sm:text-4xl;
+  }
+
+  .prose-body {
+    @apply max-w-prose text-base leading-relaxed;
+  }
+
+  /* ── Surfaces ────────────────────────────────────────────────────────────── */
+  .card {
+    @apply rounded-lg border border-sawdust-dim bg-white/60 p-6;
+  }
+
+  .card-dark {
+    @apply rounded-lg border border-bark-500 bg-bark-700 p-6;
+  }
+
+  /* End-grain texture for the hero when no real photo has been supplied yet.
+     Concentric rings suggested with layered radial gradients — no image request,
+     no stock photo, no pretending we have something we don't. */
+  .end-grain {
+    background-color: theme('colors.bark.DEFAULT');
+    background-image:
+      repeating-radial-gradient(
+        circle at 68% 42%,
+        rgba(228, 97, 15, 0.05) 0px,
+        rgba(228, 97, 15, 0.05) 1px,
+        transparent 1px,
+        transparent 13px
+      ),
+      repeating-radial-gradient(
+        circle at 68% 42%,
+        rgba(244, 239, 230, 0.035) 0px,
+        rgba(244, 239, 230, 0.035) 1px,
+        transparent 1px,
+        transparent 27px
+      ),
+      radial-gradient(circle at 68% 42%, rgba(46, 38, 32, 0.9) 0%, transparent 62%);
+  }
 }
 
 @layer utilities {
+  /* Wraps headlines on sensible words instead of leaving one orphan. */
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/*
+ * Reduced motion. Not a nicety: vestibular disorders are common, and this is a
+ * site people open while stressed about a tree on their roof.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
