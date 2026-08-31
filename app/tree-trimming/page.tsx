@@ -1,25 +1,32 @@
-import { PageHero } from '@/components/PageHero'
-import { Section } from '@/components/Section'
-import { CITY_STATE, SITE } from '@/site.config'
+import type { Metadata } from 'next'
+import { ServicePage } from '@/components/ServicePage'
+import { JsonLd } from '@/components/JsonLd'
+import { SERVICE_BY_SLUG } from '@/content/services'
+import { pageMeta } from '@/lib/metadata'
+import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema'
 
-// PHASE 2 fills in: what's included, when you need it, what drives the price,
-// what to expect on the day, photo slot, and 4-6 FAQs. Metadata lands in Phase 4.
+const service = SERVICE_BY_SLUG['tree-trimming']
+
+export const metadata: Metadata = pageMeta({
+  title: service.metaTitle,
+  description: service.description,
+  path: `/${service.slug}`,
+})
+
 export default function Page() {
+  const faq = faqSchema(service.faqs)
+
   return (
     <>
-      <PageHero
-        eyebrow="Service"
-        title={`Tree Trimming in ${CITY_STATE}`}
-        lead="Deadwood, low limbs, and branches hanging over the roof or the driveway — cut back on purpose now, instead of coming down on their own in the next storm."
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: service.noun, path: `/${service.slug}` },
+        ])}
       />
-      <Section>
-        <p className="prose-body">
-          Trimming is the cheapest tree work you will ever pay for, because it is the work
-          that stops the expensive kind. We come out to {SITE.city} and the surrounding
-          towns, look at what you have got, and tell you straight whether it needs cutting
-          this year or not.
-        </p>
-      </Section>
+      <JsonLd data={serviceSchema(service)} />
+      {faq && <JsonLd data={faq} />}
+      <ServicePage service={service} />
     </>
   )
 }

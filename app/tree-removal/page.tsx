@@ -1,24 +1,32 @@
-import { PageHero } from '@/components/PageHero'
-import { Section } from '@/components/Section'
-import { CITY_STATE, SITE } from '@/site.config'
+import type { Metadata } from 'next'
+import { ServicePage } from '@/components/ServicePage'
+import { JsonLd } from '@/components/JsonLd'
+import { SERVICE_BY_SLUG } from '@/content/services'
+import { pageMeta } from '@/lib/metadata'
+import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema'
 
-// PHASE 2 fills in: what's included, when you need it, what drives the price,
-// what to expect on the day, photo slot, and 4-6 FAQs. Metadata lands in Phase 4.
+const service = SERVICE_BY_SLUG['tree-removal']
+
+export const metadata: Metadata = pageMeta({
+  title: service.metaTitle,
+  description: service.description,
+  path: `/${service.slug}`,
+})
+
 export default function Page() {
+  const faq = faqSchema(service.faqs)
+
   return (
     <>
-      <PageHero
-        eyebrow="Service"
-        title={`Tree Removal in ${CITY_STATE}`}
-        lead={`We take down whole trees in ${SITE.city} and the surrounding towns — including the awkward ones close to wires, fences, sheds and rooflines — and haul the wood off when we go.`}
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: service.noun, path: `/${service.slug}` },
+        ])}
       />
-      <Section>
-        <p className="prose-body">
-          Most removals start the same way: you call, we come out and look at the tree in
-          person, and you get a price before anything gets cut. Nobody can quote a tree
-          honestly from a photo, so the estimate is free and it happens on site.
-        </p>
-      </Section>
+      <JsonLd data={serviceSchema(service)} />
+      {faq && <JsonLd data={faq} />}
+      <ServicePage service={service} />
     </>
   )
 }

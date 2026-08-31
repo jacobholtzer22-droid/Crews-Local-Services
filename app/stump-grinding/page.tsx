@@ -1,25 +1,32 @@
-import { PageHero } from '@/components/PageHero'
-import { Section } from '@/components/Section'
-import { CITY_STATE } from '@/site.config'
+import type { Metadata } from 'next'
+import { ServicePage } from '@/components/ServicePage'
+import { JsonLd } from '@/components/JsonLd'
+import { SERVICE_BY_SLUG } from '@/content/services'
+import { pageMeta } from '@/lib/metadata'
+import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema'
 
-// PHASE 2 fills in: what's included, when you need it, what drives the price,
-// what to expect on the day, photo slot, and 4-6 FAQs. Metadata lands in Phase 4.
+const service = SERVICE_BY_SLUG['stump-grinding']
+
+export const metadata: Metadata = pageMeta({
+  title: service.metaTitle,
+  description: service.description,
+  path: `/${service.slug}`,
+})
+
 export default function Page() {
+  const faq = faqSchema(service.faqs)
+
   return (
     <>
-      <PageHero
-        eyebrow="Service"
-        title={`Stump Grinding in ${CITY_STATE}`}
-        lead="The stump ground out below grade so you can run a mower straight over it and put grass back where the tree was."
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: service.noun, path: `/${service.slug}` },
+        ])}
       />
-      <Section>
-        <p className="prose-body">
-          A stump left in the ground gets softer, not smaller — it holds water, feeds
-          carpenter ants, and throws suckers up through the lawn for years. Grinding it out
-          ends that in an afternoon. We grind stumps we took down ourselves and stumps
-          somebody else left behind.
-        </p>
-      </Section>
+      <JsonLd data={serviceSchema(service)} />
+      {faq && <JsonLd data={faq} />}
+      <ServicePage service={service} />
     </>
   )
 }
