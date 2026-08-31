@@ -1,28 +1,32 @@
 /**
- * Real Google reviews only.
+ * Real Google reviews, verbatim, with the reviewer's first name.
  *
- * ⛔ EMPTY ON PURPOSE. Nothing renders in the reviews section while this array is
- * empty — that is correct behavior, not a bug to work around.
+ * ⛔ EMPTY. The reviews section renders NOTHING while this array is empty — no
+ * fallback, no paraphrase of reviews left on other platforms, no empty state.
+ * That is deliberate: a business quoting a summary of itself is worth nothing to
+ * a homeowner, and the honest options are real reviews or silence.
  *
- * Rules:
- *  - Only reviews Brandon or Jacob has actually received. No paraphrasing, no
- *    composites, no "representative" examples.
- *  - First name + last initial at most, plus the source and the town if known.
- *  - NEVER add Review or AggregateRating JSON-LD for these. Self-serving review
- *    markup on your own site violates Google's structured data guidelines, and the
- *    rich result it is meant to buy has not been granted for local service sites
- *    for years. They are displayed as plain text because that is the honest way.
+ * Rules for adding:
+ *  - Only reviews Brandon or Jacob actually received. No paraphrasing, no
+ *    composites, no "representative" examples, no invented first names.
+ *  - Paste the text verbatim. Do not tidy the grammar.
+ *  - First name, or first name + last initial. Town only if the reviewer said one.
  *
- * To add one: paste the review text verbatim, don't tidy the grammar.
+ * ⛔ NEVER add Review or AggregateRating JSON-LD for these. Self-serving review
+ * markup on your own site violates Google's structured data guidelines. This is
+ * permanent, not a "later" item.
+ *
+ * The Angi/Networx review themes that informed the site copy live in
+ * seo/FACTS.md as internal provenance. They are not published.
  */
 export type Review = {
-  /** Verbatim review text. */
+  /** Verbatim. Do not correct spelling or grammar. */
   quote: string
   /** First name, or first name + last initial. */
   name: string
   /** Where it was left, e.g. "Google". */
   source: string
-  /** Town, if the reviewer stated one. Optional. */
+  /** Town, if the reviewer stated one. */
   town?: string
 }
 
