@@ -61,12 +61,14 @@ Last updated: 2026-08-30 (Phase 1)
 | `yearsInBusiness` | null | **TODO** | Networx says 7, Angi says 6, oldest Angi review is Nov 2022. Three sources, three answers. Renders nothing. |
 | Free estimates | true | **CONFIRM** | Angi. |
 | Accepts cards | true | **CONFIRM** | Angi. |
+| **Wood haul-off policy** | — | **TODO** | **Does Brandon take the wood, brush and stump chips off the site, and is it included or charged separately?** Not evidenced anywhere. Every mention of disposal in the site copy was rewritten to promise nothing: the site says cleanup and raking are part of the job (which the review themes do evidence) and that what happens to the wood is *settled on the estimate*. Once Brandon confirms, the copy can state it plainly — the affected strings are the tree-removal summary/description/intro/`whatsIncluded`/`priceFactors`/`onTheDay`/FAQ, the trimming `whatsIncluded` and cleanup FAQ, the stump-grinding chips copy, the storm summary/description/intro/`whatsIncluded`/`onTheDay`, and the homepage "How it works" step 3. |
 
 ## Reviews
 
 | Fact | Status | Note |
 |---|---|---|
-| `content/reviews.ts` | **EMPTY — TODO** | The reviews section renders nothing while empty. Only real Google reviews Brandon actually received go in, verbatim, with first name and source. |
+| `content/reviews.ts` | **EMPTY — TODO** | The reviews section renders **nothing** while empty — no fallback, no paraphrase, no empty state. Only real Google reviews Brandon actually received go in, verbatim, with first name and source. |
+| Angi/Networx paraphrases | **INTERNAL ONLY** | The themes below informed the site copy but are **not published**. We have the substance of those reviews, not their wording or their authors, so putting them on the page with a platform byline would be dressing up a paraphrase as a citation. The "Why Crews" section states the same qualities as the business's own plain claims, with no attribution. |
 | Angi rating | 4.4 from 8 reviews, incl. one 1-star (June 2025) | **CONFIRM** | Not displayed. Only Google reviews Jacob pastes in get shown. |
 | Google rating / count | **TODO** | From the GBP. |
 | ⛔ Review / AggregateRating schema | **NEVER** | Self-serving review markup on your own site violates Google's structured data guidelines. Not a "we'll add it later" item — a permanent no. |
