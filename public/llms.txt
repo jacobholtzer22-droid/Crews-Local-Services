@@ -1,0 +1,28 @@
+# Crews Local Services
+
+> Tree service in Battle Creek, MI. Tree removal, tree trimming, stump grinding and
+> storm damage cleanup for homeowners in Battle Creek and the surrounding towns.
+> Free on-site estimates. Phone: (231) 729-1915
+
+## Services
+
+- [Tree Removal](https://TODO.example.com/tree-removal): Whole trees taken down, including tight spots near wires, fences and roofs.
+- [Tree Trimming](https://TODO.example.com/tree-trimming): Deadwood, low limbs and branches over the roof or driveway cut back before they come down on their own.
+- [Stump Grinding](https://TODO.example.com/stump-grinding): The leftover stump ground below grade so you can mow straight over it.
+- [Storm Damage Cleanup](https://TODO.example.com/storm-damage-cleanup): Trees and limbs down after a storm cut up and cleared out of the way.
+
+## Pages
+
+- [Home](https://TODO.example.com/): Overview, how it works, common questions.
+- [Free Estimate](https://TODO.example.com/free-estimate): Request form for a free on-site estimate.
+- [Service Area](https://TODO.example.com/service-area): Towns covered around Battle Creek.
+- [About](https://TODO.example.com/about): Who runs the business.
+- [Privacy Policy](https://TODO.example.com/privacy): How enquiry information is handled.
+
+## Notes
+
+- Estimates are free, done in person, and carry no obligation.
+- Prices are not published: they depend on the size of the tree, what is beneath
+  it, access for equipment, and proximity to wires or structures.
+- For a downed power line or a tree contacting a line, the electric utility must
+  make it safe first.

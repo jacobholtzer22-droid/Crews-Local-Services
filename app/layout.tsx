@@ -3,6 +3,8 @@ import { Barlow, Barlow_Condensed } from 'next/font/google'
 import { SiteHeader } from '@/components/SiteHeader'
 import { SiteFooter } from '@/components/SiteFooter'
 import { MobileCtaBar } from '@/components/MobileCtaBar'
+import { JsonLd } from '@/components/JsonLd'
+import { siteGraph } from '@/lib/schema'
 import { CITY_STATE, SITE } from '@/site.config'
 import './globals.css'
 
@@ -32,17 +34,20 @@ const body = Barlow({
   display: 'swap',
 })
 
-/**
- * Phase 1 baseline only. Phase 4 replaces this with the full metadata layer:
- * per-page titles/descriptions, canonicals, OG/Twitter, and the JSON-LD graph
- * (HomeAndConstructionBusiness + WebSite + Organization).
- */
 export const metadata: Metadata = {
+  // Every relative URL in metadata (canonicals, OG images) resolves against this.
+  metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} | Tree Service in ${CITY_STATE}`,
+    default: `Tree Service in ${CITY_STATE} | ${SITE.name}`,
     template: `%s | ${SITE.name}`,
   },
-  description: `Tree removal, trimming and stump grinding in ${CITY_STATE}. Free estimates.`,
+  description: `Tree removal, tree trimming and stump grinding in ${CITY_STATE}. Free on-site estimates, full cleanup. Call ${SITE.phoneDisplay}.`,
+  openGraph: {
+    siteName: SITE.name,
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image' },
 }
 
 export const viewport: Viewport = {
@@ -71,6 +76,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <SiteFooter />
         <MobileCtaBar />
+
+        {/* Site-wide graph: HomeAndConstructionBusiness + WebSite + Organization.
+            Per-page BreadcrumbList / Service / FAQPage nodes live on their pages. */}
+        <JsonLd data={siteGraph()} />
       </body>
     </html>
   )
