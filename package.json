@@ -5,10 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/verify.mjs",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "contrast": "node scripts/contrast.mjs"
+    "contrast": "node scripts/contrast.mjs",
+    "verify": "node scripts/verify.mjs",
+    "assets": "node scripts/make-brand-assets.mjs",
+    "llms": "node scripts/make-llms-txt.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

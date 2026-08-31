@@ -23,7 +23,22 @@ const PALETTE = {
   moss: '#4A5D3A',
   'moss-dim': '#6E8256',
   ink: '#14100D',
+  'ink-soft': '#3E3933',
+  'ink-muted': '#5E5850',
+  'ink-faint': '#726C63',
 }
+
+/**
+ * Alpha-modified foregrounds.
+ *
+ * These are the ones that bite. Tailwind's `text-ink/60` is not the `ink` token —
+ * it is ink composited over whatever is behind it, and the palette passing says
+ * nothing about whether the 60% variant does. Lighthouse caught two failures here
+ * that this script originally missed because it only tested solid tokens.
+ *
+ * [foregroundToken, alphaPercent, backgroundToken, label, minRatio]
+ */
+const ALPHA_PAIRS = []
 
 /** [foreground, background, label, minimum ratio] */
 const PAIRS = [
@@ -40,6 +55,15 @@ const PAIRS = [
   ['blaze', 'sawdust', 'Orange on light (LARGE TEXT / borders only)', 3.0],
   ['bark-500', 'bark', 'Border on dark surface (non-text)', 1.4],
   ['sawdust-dim', 'sawdust', 'Border on light surface (non-text)', 1.15],
+
+  // Secondary text tokens, checked against sawdust-dim — the DARKER of the two
+  // light surfaces and therefore the harder test. Passing here means passing on
+  // sawdust too, which is why these replaced the old text-ink/NN opacity classes.
+  ['ink-soft', 'sawdust-dim', 'Secondary body text on dim surface', 4.5],
+  ['ink-soft', 'sawdust', 'Secondary body text on light surface', 4.5],
+  ['ink-muted', 'sawdust-dim', 'Captions / small print on dim surface', 4.5],
+  ['ink-muted', 'sawdust', 'Captions / small print on light surface', 4.5],
+  ['ink-faint', 'sawdust', 'Input placeholder (3:1 bar for placeholders)', 3.0],
 ]
 
 const srgb = (c) => {
@@ -62,10 +86,28 @@ function ratio(a, b) {
   return (hi + 0.05) / (lo + 0.05)
 }
 
-const rows = PAIRS.map(([fg, bg, label, min]) => {
-  const r = ratio(PALETTE[fg], PALETTE[bg])
-  return { fg, bg, label, min, ratio: r, pass: r >= min }
-})
+/** Composite `hex` at `alpha` over `bg` — what the eye and Lighthouse actually see. */
+function composite(hex, alpha, bg) {
+  const h = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16))
+  const [fr, fg_, fb] = h(hex)
+  const [br, bg_, bb] = h(bg)
+  const a = alpha / 100
+  const mix = (f, b) => Math.round(f * a + b * (1 - a))
+  const to2 = (n) => n.toString(16).padStart(2, '0')
+  return `#${to2(mix(fr, br))}${to2(mix(fg_, bg_))}${to2(mix(fb, bb))}`
+}
+
+const rows = [
+  ...PAIRS.map(([fg, bg, label, min]) => {
+    const r = ratio(PALETTE[fg], PALETTE[bg])
+    return { fg, bg, label, min, ratio: r, pass: r >= min }
+  }),
+  ...ALPHA_PAIRS.map(([fg, alpha, bg, label, min]) => {
+    const composited = composite(PALETTE[fg], alpha, PALETTE[bg])
+    const r = ratio(composited, PALETTE[bg])
+    return { fg: `${fg}/${alpha}`, bg, label, min, ratio: r, pass: r >= min }
+  }),
+]
 
 const w = (s, n) => String(s).padEnd(n)
 console.log('')

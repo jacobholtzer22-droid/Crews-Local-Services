@@ -44,8 +44,23 @@ const config: Config = {
           DEFAULT: '#4A5D3A',
           dim: '#6E8256',
         },
-        /** Body text on light surfaces. */
-        ink: '#14100D',
+        /**
+         * Body text on light surfaces.
+         *
+         * These are SOLID tokens on purpose. Tailwind's `text-ink/60` is not the
+         * ink token — it is ink composited over whatever happens to be behind it,
+         * so the same class passes contrast on `sawdust` and fails on
+         * `sawdust-dim`. That exact bug shipped here once and Lighthouse caught
+         * it. Use these instead of an opacity modifier for any TEXT; the ratios
+         * below are against `sawdust-dim`, the harder of the two light surfaces,
+         * and `npm run contrast` re-verifies them.
+         */
+        ink: {
+          DEFAULT: '#14100D', // primary body text        — 14.05:1
+          soft: '#3E3933', //    secondary body text      —  8.48:1
+          muted: '#5E5850', //   captions and small print —  5.22:1
+          faint: '#726C63', //   input placeholders only  —  3.86:1
+        },
       },
       fontFamily: {
         // Injected by next/font in app/layout.tsx — no network <link>, no FOIT.
