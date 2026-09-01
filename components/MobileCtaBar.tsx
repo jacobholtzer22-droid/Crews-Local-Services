@@ -6,7 +6,7 @@ import { SITE, SMS_HREF, TEL_HREF } from '@/site.config'
  * Fixed bottom bar, mobile only. The whole site exists to produce a call or a form
  * submission, and on a phone that decision happens with one thumb.
  *
- * The Text button renders ONLY when SITE.smsEnabled — a text to a landline goes
+ * The Text button renders ONLY when SITE.smsEnabled, a text to a landline goes
  * nowhere and the customer never finds out, which is worse than not offering it.
  *
  * `body { padding-bottom: var(--mobile-cta-h) }` in globals.css reserves the space

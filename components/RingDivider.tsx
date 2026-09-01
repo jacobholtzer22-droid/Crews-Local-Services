@@ -3,7 +3,7 @@ import { cn } from '@/lib/cn'
 
 /**
  * Section divider: a hairline rule broken by the ring mark. The site's one
- * recurring flourish — everything else stays quiet so this reads as deliberate.
+ * recurring flourish, everything else stays quiet so this reads as deliberate.
  */
 export function RingDivider({
   className,

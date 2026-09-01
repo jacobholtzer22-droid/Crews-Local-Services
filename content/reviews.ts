@@ -1,7 +1,7 @@
 /**
  * Real Google reviews, verbatim, with the reviewer's first name.
  *
- * ⛔ EMPTY. The reviews section renders NOTHING while this array is empty — no
+ * ⛔ EMPTY. The reviews section renders NOTHING while this array is empty, no
  * fallback, no paraphrase of reviews left on other platforms, no empty state.
  * That is deliberate: a business quoting a summary of itself is worth nothing to
  * a homeowner, and the honest options are real reviews or silence.

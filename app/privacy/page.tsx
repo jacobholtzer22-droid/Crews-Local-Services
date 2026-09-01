@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMeta({
 /**
  * The SMS consent language here must stay identical in substance to the checkbox
  * label in components/EstimateForm.tsx. If one changes, change the other in the
- * same commit — a policy that describes a different consent from the one the
+ * same commit, a policy that describes a different consent from the one the
  * customer actually ticked is worse than no policy.
  *
  * The analytics section is conditional on SITE.tracking.gtagId, which is null, so
@@ -56,12 +56,12 @@ export default function Page() {
 
           <Block title="Text messages">
             <p>
-              The SMS box on the estimate form is unticked by default and it is optional —
-              leaving it unticked does not hold up your estimate. If you do tick it, you are
-              agreeing to receive text messages from us about your estimate. Message
-              frequency varies. Message and data rates may apply. Reply STOP to any message
-              to stop receiving them, or HELP for help. We do not send marketing texts to
-              people who have not asked for them.
+              The SMS box on the estimate form is unchecked by default and it is optional.
+              Leaving it unchecked will not hold up your estimate. If you do check it, you
+              are agreeing to receive text messages from {SITE.legalName} about your estimate
+              request. Message frequency varies. Message and data rates may apply. Reply STOP
+              to any message to stop receiving them, or HELP for help. We do not send
+              marketing texts to people who have not asked for them.
             </p>
           </Block>
 

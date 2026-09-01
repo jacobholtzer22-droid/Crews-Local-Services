@@ -34,7 +34,7 @@
     @apply font-display font-bold uppercase tracking-tight text-balance;
   }
 
-  /* One visible focus treatment everywhere. Never removed — a contractor's customer
+  /* One visible focus treatment everywhere. Never removed, a contractor's customer
      tabbing through a form with a cracked screen is a real person, not an edge case. */
   :focus-visible {
     @apply outline-none ring-2 ring-blaze ring-offset-2 ring-offset-sawdust;
@@ -65,7 +65,7 @@
            disabled:cursor-not-allowed disabled:opacity-50;
   }
 
-  /* bark text on blaze = 5.19:1. See tailwind.config.ts — do not switch to white. */
+  /* bark text on blaze = 5.19:1. See tailwind.config.ts, do not switch to white. */
   .btn-primary {
     @apply btn bg-blaze text-bark hover:bg-blaze-hover;
   }
@@ -113,7 +113,7 @@
   }
 
   /* End-grain texture for the hero when no real photo has been supplied yet.
-     Concentric rings suggested with layered radial gradients — no image request,
+     Concentric rings suggested with layered radial gradients, no image request,
      no stock photo, no pretending we have something we don't. */
   .end-grain {
     background-color: theme('colors.bark.DEFAULT');

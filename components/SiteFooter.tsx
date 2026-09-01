@@ -5,7 +5,7 @@ import { CITY_STATE, SITE, TEL_HREF } from '@/site.config'
 
 /**
  * The NAP block. This markup is the crawlable, citable copy of the business's
- * name, area and phone — it must match the Google Business Profile character for
+ * name, area and phone, it must match the Google Business Profile character for
  * character. If the GBP name, phone or service area changes, this and the JSON-LD
  * in app/layout.tsx change in the same commit.
  *
@@ -58,7 +58,7 @@ export function SiteFooter() {
                   <div key={h.days.join('-')} className="flex gap-2">
                     <dt className="font-semibold text-sawdust">{h.days.join(', ')}</dt>
                     <dd>
-                      {h.open}–{h.close}
+                      {h.open} to {h.close}
                     </dd>
                   </div>
                 ))}
@@ -85,7 +85,7 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          {/* Service area — crawlable text, not an image or a map embed. */}
+          {/* Service area, crawlable text, not an image or a map embed. */}
           <nav aria-labelledby="footer-area">
             <h2
               id="footer-area"

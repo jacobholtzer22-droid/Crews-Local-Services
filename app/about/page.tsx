@@ -42,14 +42,14 @@ export default function Page() {
           <div className="lg:col-span-3">
             <p className="prose-body">
               It is a small operation on purpose. When you call, you get the person who is
-              going to be standing in your yard — not a call centre, and not a salesman who
+              going to be standing in your yard, not a call centre, and not a salesman who
               hands you off to a crew he has never met.
             </p>
             <p className="prose-body mt-5">
               That is also why the estimate is free and done in person. {SITE.owner} would
-              rather look at the tree than guess at it, and most of what decides a price —
-              what is underneath the tree, whether equipment can reach it, what it has grown
-              into — does not show up in a photo.
+              rather look at the tree than guess at it, and most of what decides a price does
+              not show up in a photo: what is underneath the tree, whether equipment can reach
+              it, and what it has grown into.
             </p>
             <p className="prose-body mt-5">
               The work is tree work: removals, trimming, stump grinding, and clearing up
@@ -74,7 +74,7 @@ export default function Page() {
           </div>
 
           <div className="lg:col-span-2">
-            {/* TODO: photo of Brandon or the crew — see public/photos/README.md */}
+            {/* TODO: photo of Brandon or the crew, see public/photos/README.md */}
             <PhotoSlot
               alt={`${SITE.owner}, owner of ${SITE.legalName}, on a job in ${CITY_STATE}`}
             />

@@ -5,7 +5,7 @@ import { REVIEWS } from '@/content/reviews'
 /**
  * Real Google reviews only.
  *
- * The whole section returns null while REVIEWS is empty — no fallback, no
+ * The whole section returns null while REVIEWS is empty, no fallback, no
  * paraphrase of reviews left elsewhere, no empty state. A tree service quoting
  * itself is worth nothing to a homeowner; the honest options are real reviews or
  * silence, and silence is the one we can stand behind today.

@@ -11,7 +11,7 @@ import './globals.css'
 /**
  * Barlow Condensed for display, Barlow for body.
  *
- * Barlow is drawn from Californian industrial/transit signage — it reads as work-truck
+ * Barlow is drawn from Californian industrial/transit signage, it reads as work-truck
  * lettering and equipment decals rather than as a brochure face. The condensed cut
  * matters practically as well as tonally: the H1 "Tree removal, trimming, and stump
  * grinding in Battle Creek, MI" has to hold at hero size on a 375px screen, and a
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  // No maximumScale / userScalable:false — never disable pinch zoom.
+  // No maximumScale / userScalable:false, never disable pinch zoom.
   themeColor: '#1A1512',
 }
 

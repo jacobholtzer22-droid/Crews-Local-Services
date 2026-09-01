@@ -12,7 +12,7 @@ import { CITY_STATE, SITE, TEL_HREF } from '@/site.config'
 
 /**
  * One renderer for all four service pages. The pages themselves are three lines
- * each — everything lives in content/services.ts, so copy edits never touch JSX
+ * each, everything lives in content/services.ts, so copy edits never touch JSX
  * and the four pages cannot drift structurally.
  */
 export function ServicePage({ service }: { service: Service }) {

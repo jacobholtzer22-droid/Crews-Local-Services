@@ -1,7 +1,7 @@
 import type { Faq } from '@/content/faq-types'
 
 /**
- * Homepage FAQs — six, phrased the way homeowners actually type them.
+ * Homepage FAQs, six, phrased the way homeowners actually type them.
  *
  * Every answer here is either a general fact about tree work, a statement about
  * how Crews operates that traces to seo/FACTS.md, or an honest "it depends, and
@@ -11,7 +11,7 @@ export const HOME_FAQS: Faq[] = [
   {
     question: 'How much does tree removal cost?',
     answer:
-      'There is no flat rate, and anyone who quotes you one over the phone is guessing. Price comes down to the size of the tree, how close it is to a house, wires or a fence, whether a truck can get near it, and whether you want the stump ground and what you want done with the wood. That is why the estimate is free and done in person — we would rather look at the tree than guess at it.',
+      'There is no flat rate, and anyone who quotes you one over the phone is guessing. Price comes down to the size of the tree, how close it is to a house, wires or a fence, whether a truck can get near it, and whether you want the stump ground and what you want done with the wood. That is why the estimate is free and done in person, we would rather look at the tree than guess at it.',
   },
   {
     question: 'Do I need a permit to remove a tree in Battle Creek?',
@@ -21,7 +21,7 @@ export const HOME_FAQS: Faq[] = [
   {
     question: 'What if the tree is near power lines?',
     answer:
-      'Stay well clear of it and do not try to cut anything yourself. The line itself is the utility’s to handle — call your electric utility and they will deal with the conductor. We work around wires regularly and will tell you honestly on the estimate whether the job needs the utility involved first.',
+      'Stay well clear of it and do not try to cut anything yourself. The line itself is the utility’s to handle. Call your electric utility and they will deal with the conductor. We work around wires regularly and will tell you honestly on the estimate whether the job needs the utility involved first.',
   },
   {
     question: 'What happens to the wood and brush?',

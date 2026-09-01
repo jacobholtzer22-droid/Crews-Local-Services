@@ -12,13 +12,19 @@
  *                           and the fake schema types other tree sites emit
  *   4. Outstanding TODOs  — reported, not failed
  *
- * ⛔ THIS IS A DEPLOY GATE. It runs as `postbuild`, so `npm run build` — which is
- * what Vercel runs — exits non-zero if the CRM slug is missing or the domain is
- * still the placeholder. Both failures are silent in production otherwise: an
- * empty slug means every lead 404s at the CRM and is never stored, and a
- * placeholder domain poisons every canonical, OG URL and schema @id on the site.
- * Neither is visible by looking at the deployed page, which is exactly why the
- * build has to refuse.
+ * ⛔ THIS IS A PRODUCTION DEPLOY GATE. It runs as `postbuild`, so it is part of
+ * `npm run build`, which is what Vercel runs.
+ *
+ * It only ever FAILS the build on a Vercel PRODUCTION deploy
+ * (process.env.VERCEL_ENV === 'production'). Locally and on preview deploys it
+ * prints the identical report with FAIL relabelled WARN, and exits 0.
+ *
+ * Why the split: the two gated conditions are invisible on the rendered page, so
+ * only a build failure catches them before they reach a customer. But blocking
+ * every local build and every preview deploy on facts we are still waiting for
+ * from the client makes the site impossible to work on and impossible to show
+ * anyone, and a gate people route around stops being a gate. Preview keeps the
+ * warning loud; production keeps the refusal absolute.
  */
 import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
@@ -34,10 +40,17 @@ const NAME = cfgStr('name')
 const INSURED = cfgBool('insured')
 const EMERGENCY = cfgBool('emergency')
 
+/**
+ * Vercel sets VERCEL_ENV to 'production' | 'preview' | 'development'. It is unset
+ * on a local machine, which we treat exactly like preview: report, do not block.
+ */
+const IS_VERCEL_PRODUCTION = process.env.VERCEL_ENV === 'production'
+const LABEL = IS_VERCEL_PRODUCTION ? 'FAIL' : 'WARN'
+
 let failures = 0
 const fail = (msg) => {
   failures++
-  console.log(`  FAIL  ${msg}`)
+  console.log(`  ${LABEL}  ${msg}`)
 }
 const pass = (msg) => console.log(`  pass  ${msg}`)
 
@@ -314,11 +327,25 @@ for (const [status, item, where] of openItems) {
 
 // ───────────────────────────────────────────────────────────────────── RESULT ──
 console.log('')
+console.log(
+  `environment: VERCEL_ENV=${process.env.VERCEL_ENV ?? '(unset, treated as local)'} ` +
+    `-> problems are ${IS_VERCEL_PRODUCTION ? 'BLOCKING' : 'non-blocking warnings'}`,
+)
+
 if (failures > 0) {
-  console.error(
-    `VERIFY FAILED — ${failures} problem(s). The build is intentionally blocked; ` +
-      `fix the items above (or the BLOCKERs in the table) and rebuild.`,
+  if (IS_VERCEL_PRODUCTION) {
+    console.error(
+      `VERIFY FAILED: ${failures} problem(s). This is a production deploy, so the build ` +
+        `is blocked. Fix the items above (or the BLOCKERs in the table) and redeploy.`,
+    )
+    process.exit(1)
+  }
+  console.warn(
+    `VERIFY WARNED: ${failures} problem(s). Not a production deploy, so the build ` +
+      `continues. These WILL block a production deploy until they are fixed.`,
   )
-  process.exit(1)
+  process.exit(0)
 }
-console.log(`VERIFY PASSED — ${rows.length} pages, 0 failures, ${openItems.length} open TODO/CONFIRM item(s).`)
+console.log(
+  `VERIFY PASSED: ${rows.length} pages, 0 problems, ${openItems.length} open TODO/CONFIRM item(s).`,
+)

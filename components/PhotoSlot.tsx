@@ -4,8 +4,8 @@ import { RingMark } from '@/components/RingMark'
  * Where a real photo goes.
  *
  * There are ZERO photos of Brandon's work available, so rather than fill the space
- * with a stock image of somebody else's crew and somebody else's truck — which is
- * how every interchangeable tree service site on the first page looks — this
+ * with a stock image of somebody else's crew and somebody else's truck, which is
+ * how every interchangeable tree service site on the first page looks, this
  * renders the end-grain panel.
  *
  * TODO (Jacob): drop real photos into public/photos/ and replace this component's

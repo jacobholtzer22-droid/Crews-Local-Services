@@ -4,7 +4,7 @@ import { abs } from '@/lib/schema'
 /**
  * AI answer engines are named explicitly and allowed.
  *
- * Most of them already default to allowed, so this is belt-and-braces — but the
+ * Most of them already default to allowed, so this is belt-and-braces, but the
  * ones that matter here are the two-crawler setups where the training crawler and
  * the live-retrieval crawler are separate user agents (GPTBot vs OAI-SearchBot and
  * ChatGPT-User; ClaudeBot vs Claude-User; PerplexityBot vs Perplexity-User).

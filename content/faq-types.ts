@@ -4,7 +4,7 @@
  * CRITICAL: whatever renders on the page is what goes into the FAQPage JSON-LD,
  * built from this same array. There is no second copy of the copy. Google requires
  * schema to match visible content, and the reliable way to guarantee that is to
- * have exactly one source — see app/components/JsonLd usage in Phase 4.
+ * have exactly one source, see app/components/JsonLd usage in Phase 4.
  */
 export type Faq = {
   question: string
@@ -12,8 +12,7 @@ export type Faq = {
   answer: string
   /**
    * Gate. The FAQ renders only when the named flag in site.config.ts is true.
-   * "Are you insured?" must not appear at all while SITE.insured is false —
-   * an unanswered insurance question is worse than no question.
+   * "Are you insured?" must not appear at all while SITE.insured is false, * an unanswered insurance question is worse than no question.
    */
   requires?: 'insured' | 'emergency'
 }

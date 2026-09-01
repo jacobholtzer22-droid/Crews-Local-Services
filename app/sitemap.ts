@@ -3,7 +3,7 @@ import { SERVICES } from '@/content/services'
 import { abs } from '@/lib/schema'
 
 /**
- * Every real, indexable page. There are no excluded routes on this site — nothing
+ * Every real, indexable page. There are no excluded routes on this site, nothing
  * is noindexed, because everything here is public marketing content.
  *
  * lastModified is intentionally omitted rather than stamped with the build date:

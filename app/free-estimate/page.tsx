@@ -26,7 +26,7 @@ export default function Page() {
       <PageHero
         eyebrow="Free estimate"
         title="Get a Free Estimate"
-        lead="Tell us what tree, where it sits on the property, and what it is near. We come look at it in person — no charge for the estimate and no obligation attached to it."
+        lead="Tell us what tree, where it sits on the property, and what it is near. We come look at it in person, no charge for the estimate and no obligation attached to it."
       />
 
       <Section>

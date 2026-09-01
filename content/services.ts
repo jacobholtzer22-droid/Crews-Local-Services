@@ -2,14 +2,14 @@ import type { Faq } from '@/content/faq-types'
 import type { ServiceSlug } from '@/site.config'
 
 /**
- * Full service page content. One object per service — the page component is a
+ * Full service page content. One object per service, the page component is a
  * dumb renderer, so copy changes happen here and nowhere else.
  *
  * Nothing states a capability Crews has not been shown to perform: removal,
  * trimming and stump grinding come from the Yelp/Yahoo business description,
  * storm cleanup from a listing photo of a fallen tree cleared at a church/daycare.
  * Everything else is either general fact about tree work or how Crews operates
- * per seo/FACTS.md. No prices anywhere — we explain what drives price and push
+ * per seo/FACTS.md. No prices anywhere, we explain what drives price and push
  * to the free estimate.
  */
 export type Service = {
@@ -24,7 +24,7 @@ export type Service = {
    * Full <title>, written out per service rather than assembled from a template.
    * A formula that appends "| Crews Local Services" to every noun overflows the
    * ~60-char SERP cutoff on the longer services, and the half that gets truncated
-   * is the city — the single most important word on a local page.
+   * is the city, the single most important word on a local page.
    */
   metaTitle: string
   /** Meta description, 140-160 chars. Shared with the page's Service JSON-LD. */
@@ -57,8 +57,8 @@ export const SERVICES: Service[] = [
     intro:
       'We take whole trees down in Battle Creek and the surrounding towns, including the awkward ones sitting close to wires, fences, sheds and rooflines. What happens to the wood is settled on the estimate, which is free and done in person.',
     body: [
-      'Most removals start the same way. You call, we come out and look at the tree standing where it actually is, and you get a price before anything gets cut. Nobody can quote a tree honestly from a photo — the things that decide the job are what is underneath it, what is beside it, and whether a truck can get within reach of it, and none of that shows up in a picture.',
-      'Where there is room to work, a tree comes down in a few large pieces. Where there is not — a back yard hemmed in by a fence, a trunk leaning over a garage, a maple grown up through a set of overhead wires — it comes down in controlled sections, rigged and lowered rather than dropped. That second kind takes longer and costs more, and it is the reason two trees that look the same size from the road can be very different jobs.',
+      'Most removals start the same way. You call, we come out and look at the tree standing where it actually is, and you get a price before anything gets cut. Nobody can quote a tree honestly from a photo. The things that decide the job are what is underneath it, what is beside it, and whether a truck can get within reach of it, and none of that shows up in a picture.',
+      'Where there is room to work, a tree comes down in a few large pieces. Where there is not, it comes down in controlled sections, rigged and lowered rather than dropped: a back yard hemmed in by a fence, a trunk leaning over a garage, a maple grown up through a set of overhead wires. That second kind takes longer and costs more, and it is the reason two trees that look the same size from the road can be very different jobs.',
       'Once the tree is down the site gets cleared. If you want the stump gone as well, that is a separate pass with a grinder and it is easier and cheaper to book at the same time than to call us back for it later.',
     ],
     whatsIncluded: [
@@ -72,7 +72,7 @@ export const SERVICES: Service[] = [
       {
         heading: 'The tree is dead or mostly dead',
         detail:
-          'Bare branches in mid-summer, bark falling away in sheets, or mushrooms growing at the base. A dead tree does not stay standing politely — it comes apart from the top down, on its own schedule.',
+          'Bare branches in mid-summer, bark falling away in sheets, or mushrooms growing at the base. A dead tree does not stay standing politely. It comes apart from the top down, on its own schedule.',
       },
       {
         heading: 'It is leaning, or the ground is lifting',
@@ -114,7 +114,7 @@ export const SERVICES: Service[] = [
       {
         heading: 'What you want left behind',
         detail:
-          'Stump ground or left, and what you want done with the wood — settled before we start rather than after.',
+          'Stump ground or left, and what you want done with the wood, settled before we start rather than after.',
       },
     ],
     onTheDay: [
@@ -187,7 +187,7 @@ export const SERVICES: Service[] = [
       {
         heading: 'There is deadwood in the canopy',
         detail:
-          'Bare grey limbs among the leaves in summer. They are already failed — they just have not fallen yet, and they choose their own moment.',
+          'Bare grey limbs among the leaves in summer. They are already failed. They just have not fallen yet, and they choose their own moment.',
       },
       {
         heading: 'You cannot get under it',
@@ -224,7 +224,7 @@ export const SERVICES: Service[] = [
     ],
     onTheDay: [
       'We walk the trees with you first and agree what is coming off before any cutting starts.',
-      'Anything under the work gets moved — patio furniture, cars, garbage cans.',
+      'Anything under the work gets moved: patio furniture, cars, garbage cans.',
       'Cuts are made back to the right point on the branch, not left as stubs.',
       'Brush comes out, gutters get checked for what fell in them, and the ground gets raked.',
     ],
@@ -232,7 +232,7 @@ export const SERVICES: Service[] = [
       {
         question: 'When is the best time of year to trim?',
         answer:
-          'Late winter into early spring is ideal for most trees in Michigan — the structure is visible with the leaves off and the tree responds well going into the growing season. Dead and dangerous limbs are the exception: those come out whenever you notice them.',
+          'Late winter into early spring is ideal for most trees in Michigan. The structure is visible with the leaves off and the tree responds well going into the growing season. Dead and dangerous limbs are the exception: those come out whenever you notice them.',
       },
       {
         question: 'How much can you take off without hurting the tree?',
@@ -247,7 +247,7 @@ export const SERVICES: Service[] = [
       {
         question: 'Do you top trees?',
         answer:
-          'No. Topping — cutting the whole crown back to stubs — is the single most damaging thing you can do to a mature tree. It provokes weak growth that fails later and it takes years off the tree. If someone has offered to top yours, get a second opinion.',
+          'No. Topping, which means cutting the whole crown back to stubs, is the single most damaging thing you can do to a mature tree. It provokes weak growth that fails later and it takes years off the tree. If someone has offered to top yours, get a second opinion.',
       },
       {
         question: 'Will you clean up the branches?',
@@ -272,8 +272,8 @@ export const SERVICES: Service[] = [
       'We grind stumps out below ground level in Battle Creek and the surrounding towns, so you can run a mower straight over the spot and put grass back where the tree was. We grind stumps we took down ourselves and stumps somebody else left behind years ago.',
     body: [
       'A stump left in the ground does not quietly disappear. It gets softer rather than smaller, holds water, feeds carpenter ants and wasps, and on some species throws suckers up through the lawn for years afterward. It is also the thing you catch the mower on every single week.',
-      'Grinding chews the stump and the top of the root flare down into chips, usually to somewhere between four and eight inches below grade — deeper if you are planning to plant something on top rather than just seed grass. What you are left with is a hole full of wood chips.',
-      'Those chips are the part people are not expecting. A stump produces a surprising volume of them, well above the original stump, and they are not soil. They can be raked back into the hole and mounded to settle, which is included. If you would rather they were off the site so you can fill with topsoil, raise it on the estimate — it is quoted separately, and it gives a much better result if you are putting grass back.',
+      'Grinding chews the stump and the top of the root flare down into chips, usually to somewhere between four and eight inches below grade, deeper if you are planning to plant something on top rather than just seed grass. What you are left with is a hole full of wood chips.',
+      'Those chips are the part people are not expecting. A stump produces a surprising volume of them, well above the original stump, and they are not soil. They can be raked back into the hole and mounded to settle, which is included. If you would rather they were off the site so you can fill with topsoil, raise it on the estimate. It is quoted separately, and it gives a much better result if you are putting grass back.',
     ],
     whatsIncluded: [
       'Stump ground below grade, deeper if you are replanting',
@@ -330,7 +330,7 @@ export const SERVICES: Service[] = [
       },
     ],
     onTheDay: [
-      'Mark anything buried you know about — irrigation lines, dog fence, low-voltage lighting, septic. We cannot see it and the grinder will not care.',
+      'Mark anything buried you know about: irrigation lines, dog fence, low-voltage lighting, septic. We cannot see it and the grinder will not care.',
       'The grinder needs a path to the stump, so gates and side yards need to be clear.',
       'Grinding throws debris, so anything nearby that you would rather not get chipped gets moved or covered.',
       'Chips get raked back and mounded, or dealt with the way you agreed on the estimate.',
@@ -344,7 +344,7 @@ export const SERVICES: Service[] = [
       {
         question: 'What happens to all the wood chips?',
         answer:
-          'A stump makes far more chips than people expect — well more than the volume of the stump itself. Raking them back into the hole and mounding them to settle is included. If you would rather they were off the site so you can fill with topsoil, raise it on the estimate and we will quote it separately.',
+          'A stump makes far more chips than people expect, well more than the volume of the stump itself. Raking them back into the hole and mounding them to settle is included. If you would rather they were off the site so you can fill with topsoil, raise it on the estimate and we will quote it separately.',
       },
       {
         question: 'Do the roots get removed too?',
@@ -354,7 +354,7 @@ export const SERVICES: Service[] = [
       {
         question: 'Can I plant grass where the stump was?',
         answer:
-          'Yes, but not straight into the chips — they are wood, not soil, and grass struggles in them. Have the chips cleared, fill with topsoil, then seed. If you leave the chips, expect the mound to settle over several months before it is ready.',
+          'Yes, but not straight into the chips. They are wood, not soil, and grass struggles in them. Have the chips cleared, fill with topsoil, then seed. If you leave the chips, expect the mound to settle over several months before it is ready.',
       },
       {
         question: 'Will you grind a stump you did not cut?',
@@ -380,7 +380,7 @@ export const SERVICES: Service[] = [
     body: [
       'Storm damage is almost always worse than it looks from the kitchen window. The tree across the lawn is the obvious part. The parts that matter more are the split in the trunk of the one still standing, the broken limb hung up in the canopy above where the kids play, and the trunk lying on a fence with tension in it that will move the moment somebody cuts the wrong side of it.',
       'That last one is why the advice here is to leave it alone. A limb under tension is genuinely dangerous to cut, and a chainsaw is an unforgiving tool for finding that out. It costs nothing to have someone look at it first.',
-      'Two things come before us, though. If a power line is down or a tree is touching a line, stay away from it and call your electric utility — the conductor is theirs to make safe and nobody else should be near it. And if a tree is on the house, call your insurer early, because most policies want to hear about it before the repair rather than after.',
+      'Two things come before us, though. If a power line is down or a tree is touching a line, stay away from it and call your electric utility. The conductor is theirs to make safe and nobody else should be near it. And if a tree is on the house, call your insurer early, because most policies want to hear about it before the repair rather than after.',
     ],
     whatsIncluded: [
       'Downed trees and limbs cut up and cleared',
@@ -431,7 +431,7 @@ export const SERVICES: Service[] = [
       },
     ],
     onTheDay: [
-      'Keep everyone well clear of anything down until we have looked at it — especially anything near a wire.',
+      'Keep everyone well clear of anything down until we have looked at it, especially anything near a wire.',
       'We assess what is still standing as well as what is on the ground. The dangerous piece is often the one still up.',
       'Wood gets cut up and cleared, working from the safe end of anything under tension.',
       'Debris is cleared out of the way and the site is raked.',

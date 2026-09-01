@@ -1,7 +1,7 @@
 /**
  * THE signature element: an end-grain tree ring, drawn as inline SVG.
  *
- * Deliberately OFF-CENTER. Real trunks are — a tree leaning into prevailing wind
+ * Deliberately OFF-CENTER. Real trunks are, a tree leaning into prevailing wind
  * lays down wider growth rings on one side (reaction wood), so the pith sits off
  * to one side and the rings bunch on the other. A perfectly concentric target
  * reads as a logo template; this reads as something Brandon has cut through.
@@ -43,7 +43,7 @@ export function RingMark({ className, variant = 'mark' }: Props) {
       focusable="false"
     >
       {/* Clip everything to the log's outer edge so the off-center rings get cut
-          off asymmetrically — which is what makes it read as a real cross-section. */}
+          off asymmetrically, which is what makes it read as a real cross-section. */}
       <defs>
         <clipPath id={`ring-clip-${variant}`}>
           <circle cx="50" cy="50" r="48" />
@@ -66,7 +66,7 @@ export function RingMark({ className, variant = 'mark' }: Props) {
         {/* The pith itself. */}
         <circle cx={PITH_X} cy={PITH_Y} r="1.4" fill="currentColor" opacity={isField ? 0.6 : 0.9} />
 
-        {/* A radial check — the split that opens from the center as a round dries.
+        {/* A radial check, the split that opens from the center as a round dries.
             One only. Two starts to look like a logo of a broken thing. */}
         <path
           d={`M ${PITH_X} ${PITH_Y} L ${PITH_X - 30} ${PITH_Y + 54} L ${PITH_X - 25} ${PITH_Y + 55} Z`}

@@ -8,12 +8,12 @@ import { SITE } from '@/site.config'
  *   - keyboard and screen-reader behaviour is the browser's, so it is correct
  *   - it works with JS disabled or still loading
  *   - the answer text is in the DOM either way, so crawlers and AI answer engines
- *     read it whether or not it is expanded — which is the entire point of an FAQ
+ *     read it whether or not it is expanded, which is the entire point of an FAQ
  *     block on a page like this
  *
  * Gating: an FAQ with `requires` renders only when that flag is true in
  * site.config.ts. "Are you insured?" must never appear while SITE.insured is
- * false — an insurance question with a dodged answer is worse than no question.
+ * false, an insurance question with a dodged answer is worse than no question.
  */
 export function visibleFaqs(faqs: Faq[]): Faq[] {
   return faqs.filter((f) => {

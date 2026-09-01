@@ -22,8 +22,8 @@ export const metadata: Metadata = pageMeta({
  * NO per-town pages, deliberately. Ten near-identical pages differing only in a
  * swapped town name is thin content: it is a liability with Google rather than a
  * ranking strategy, and it gives a homeowner nothing they did not already have.
- * If Brandon later has genuinely town-specific material — real jobs, real photos,
- * real local detail — that changes the calculation. Logged as an option in
+ * If Brandon later has genuinely town-specific material, real jobs, real photos,
+ * real local detail, that changes the calculation. Logged as an option in
  * seo/HANDOFF.md.
  */
 export default function Page() {
@@ -38,7 +38,7 @@ export default function Page() {
       <PageHero
         eyebrow="Where we work"
         title={`Tree Service Areas Around ${CITY_STATE}`}
-        lead={`We work out of ${SITE.city} and cover the towns around it. If you are not on this list, call anyway — if we can get to you we will tell you, and the estimate is free either way.`}
+        lead={`We work out of ${SITE.city} and cover the towns around it. If you are not on this list, call anyway. If we can get to you we will tell you, and the estimate is free either way.`}
       />
 
       <Section labelledBy="towns-heading">
@@ -58,7 +58,7 @@ export default function Page() {
 
         <p className="prose-body mt-10 text-ink-soft">
           Travel is part of what an estimate accounts for, so a job an hour out is priced
-          differently from one across town — but the estimate itself is free wherever you
+          differently from one across town, but the estimate itself is free wherever you
           are, and we will tell you up front if you are further than we can sensibly reach.
         </p>
       </Section>

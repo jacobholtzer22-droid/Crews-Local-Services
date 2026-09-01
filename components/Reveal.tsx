@@ -5,14 +5,14 @@ import { cn } from '@/lib/cn'
 
 /**
  * One scroll reveal, on section entry. Hand-rolled on IntersectionObserver rather
- * than pulling in framer-motion (~35kB gz) — this site is judged on how fast it
+ * than pulling in framer-motion (~35kB gz), this site is judged on how fast it
  * opens on a phone with two bars of signal, and a fade-up does not justify a
  * animation runtime.
  *
  * Content is present in the DOM and readable from the first byte either way; this
  * only animates opacity/transform, so a JS failure or a crawler sees everything.
  * `prefers-reduced-motion` is honored globally in globals.css, which zeroes the
- * duration — the element still ends up visible.
+ * duration, the element still ends up visible.
  */
 export function Reveal({
   children,

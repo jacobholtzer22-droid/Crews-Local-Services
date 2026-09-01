@@ -31,7 +31,7 @@ export const metadata: Metadata = pageMeta({
  * the items that are actually true in site.config.ts, so insurance and
  * years-in-business are simply absent rather than softened.
  *
- * Nothing here promises that wood or brush leaves the site — Brandon has not
+ * Nothing here promises that wood or brush leaves the site. Brandon has not
  * confirmed a haul-off policy, so every mention of disposal is framed as
  * something settled on the estimate. See seo/FACTS.md → "Wood haul-off policy".
  */
@@ -44,7 +44,7 @@ export default function HomePage() {
       {faq && <JsonLd data={faq} />}
 
       {/* ── HERO ───────────────────────────────────────────────────────────────
-          NO PHOTO YET — ships as the end-grain panel rather than a stock photo of
+          NO PHOTO YET, ships as the end-grain panel rather than a stock photo of
           somebody else's crew. See public/photos/README.md. */}
       <section className="on-bark end-grain relative overflow-hidden bg-bark text-sawdust">
         <RingMark
@@ -56,7 +56,7 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <p className="eyebrow-dark">{CITY_STATE}</p>
 
-            {/* Ampersand, not "and" — one step shorter on a 375px screen while
+            {/* Ampersand, not "and", one step shorter on a 375px screen while
                 keeping the full search phrase intact. The <title> keeps "and",
                 which has no line-length constraint and reads better in a SERP.
                 text-3xl is a MOBILE-ONLY step down from the h-display default:
@@ -81,7 +81,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* TRUE ITEMS ONLY — each gated on site.config.ts. */}
+            {/* TRUE ITEMS ONLY, each gated on site.config.ts. */}
             <ul className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-sawdust-muted">
               {SITE.freeEstimates && <TrustItem>Free estimates</TrustItem>}
               {SITE.serviceAreas.length > 0 && (
@@ -176,7 +176,7 @@ export default function HomePage() {
           The business's own claims, stated plainly in its own voice. These are
           informed by recurring themes in real reviews (logged in seo/FACTS.md as
           internal provenance) but they are NOT presented as reviews and carry no
-          platform attribution — we do not have those reviewers' words or names,
+          platform attribution, we do not have those reviewers' words or names,
           so citing them on the page would be dressing up a paraphrase. */}
       <Section labelledBy="why-heading">
         <Reveal>
@@ -202,7 +202,7 @@ export default function HomePage() {
             },
             {
               t: 'Cleanup is part of the job',
-              d: 'The work area gets cleared and raked before we leave — down to the sawdust, not just the big pieces.',
+              d: 'The work area gets cleared and raked before we leave, down to the sawdust, not just the big pieces.',
             },
             {
               t: 'You get the owner',

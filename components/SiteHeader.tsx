@@ -38,7 +38,7 @@ export function SiteHeader() {
         <Link
           href="/"
           className="flex items-center gap-2.5 rounded"
-          aria-label={`${SITE.name} — home`}
+          aria-label={`${SITE.name}, home`}
         >
           <RingMark className="h-9 w-9 shrink-0 text-blaze" />
           <span className="font-display text-xl font-extrabold uppercase leading-none tracking-tight sm:text-2xl">
