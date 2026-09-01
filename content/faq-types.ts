@@ -16,3 +16,20 @@ export type Faq = {
    */
   requires?: 'insured' | 'emergency'
 }
+
+/**
+ * Gate filter. Lives here rather than in FaqList because lib/schema.ts (server)
+ * builds the FAQPage JSON-LD from the SAME array through this SAME function, and
+ * importing it from a 'use client' module would drag that module into the server
+ * graph for no reason. One source, one filter: schema and visible content cannot
+ * drift.
+ */
+import { SITE } from '@/site.config'
+
+export function visibleFaqs(faqs: Faq[]): Faq[] {
+  return faqs.filter((f) => {
+    if (f.requires === 'insured') return SITE.insured
+    if (f.requires === 'emergency') return SITE.emergency
+    return true
+  })
+}

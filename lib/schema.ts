@@ -1,6 +1,5 @@
 import { SERVICES, type Service } from '@/content/services'
-import { visibleFaqs } from '@/components/FaqList'
-import type { Faq } from '@/content/faq-types'
+import { visibleFaqs, type Faq } from '@/content/faq-types'
 import { CITY_STATE, SITE } from '@/site.config'
 
 /**

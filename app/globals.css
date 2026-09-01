@@ -70,6 +70,28 @@
     @apply btn bg-blaze text-bark hover:bg-blaze-hover;
   }
 
+  /* Hover lift + pressed state for every button variant. transform and
+     box-shadow only, so nothing reflows and the focus ring is untouched. */
+  .btn {
+    @apply will-change-transform;
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease,
+      color 200ms ease,
+      transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 160ms ease;
+  }
+
+  .btn:hover {
+    transform: translate3d(0, -2px, 0);
+    box-shadow: 0 6px 18px -6px rgb(26 21 18 / 0.45);
+  }
+
+  .btn:active {
+    transform: translate3d(0, 0, 0);
+    box-shadow: 0 2px 6px -4px rgb(26 21 18 / 0.5);
+  }
+
   .btn-secondary {
     @apply btn border-2 border-bark bg-transparent text-bark hover:bg-bark hover:text-sawdust;
   }
@@ -141,11 +163,50 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Card hover lift, paired with .card-arrow below. */
+  .lift {
+    transition:
+      transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+    will-change: transform;
+  }
+
+  .lift:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: 0 10px 26px -12px rgb(26 21 18 / 0.4);
+  }
+
+  /* Arrow slides right on card hover. */
+  .card-arrow {
+    display: inline-block;
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .group:hover .card-arrow {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+/* FAQ answer fades in on open. Closing is animated by the JS enhancement in
+   FaqList, which holds the element open for the duration then releases it. */
+details[open] > .faq-body {
+  animation: faqOpen 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+details.is-closing > .faq-body {
+  animation: faqOpen 180ms cubic-bezier(0.16, 1, 0.3, 1) reverse both;
 }
 
 /*
  * Reduced motion. Not a nicety: vestibular disorders are common, and this is a
  * site people open while stressed about a tree on their roof.
+ *
+ * This block is what makes every animation above optional. It kills durations
+ * globally, including the hero stagger, the 120s ring drift, the accordion and
+ * the mobile bar. Elements animated with `both` fill still settle on their end
+ * state, so content is fully visible, just not animated.
  */
 @media (prefers-reduced-motion: reduce) {
   html {

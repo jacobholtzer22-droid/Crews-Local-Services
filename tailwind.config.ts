@@ -95,14 +95,37 @@ const config: Config = {
         lg: '8px',
       },
       keyframes: {
+        // Every keyframe below animates opacity and transform ONLY. Nothing here
+        // touches width, height, top or left, so none of it can trigger layout
+        // and none of it can move CLS off zero.
         reveal: {
           from: { opacity: '0', transform: 'translate3d(0, 12px, 0)' },
           to: { opacity: '1', transform: 'translate3d(0, 0, 0)' },
         },
+        heroIn: {
+          from: { opacity: '0', transform: 'translate3d(0, 14px, 0)' },
+          to: { opacity: '1', transform: 'translate3d(0, 0, 0)' },
+        },
+        /** The one looping animation on the site. 120s per revolution: felt, not seen. */
+        ringDrift: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
+        barUp: {
+          from: { transform: 'translate3d(0, 100%, 0)' },
+          to: { transform: 'translate3d(0, 0, 0)' },
+        },
+        faqOpen: {
+          from: { opacity: '0', transform: 'translate3d(0, -6px, 0)' },
+          to: { opacity: '1', transform: 'translate3d(0, 0, 0)' },
+        },
       },
       animation: {
-        // 420ms ease-out: entering motion, single element per section.
         reveal: 'reveal 420ms cubic-bezier(0.16, 1, 0.3, 1) both',
+        heroIn: 'heroIn 560ms cubic-bezier(0.16, 1, 0.3, 1) both',
+        ringDrift: 'ringDrift 120s linear infinite',
+        barUp: 'barUp 420ms cubic-bezier(0.16, 1, 0.3, 1) both 300ms',
+        faqOpen: 'faqOpen 220ms cubic-bezier(0.16, 1, 0.3, 1) both',
       },
     },
   },
