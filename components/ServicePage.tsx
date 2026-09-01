@@ -7,8 +7,26 @@ import { PageHero } from '@/components/PageHero'
 import { PhotoSlot } from '@/components/PhotoSlot'
 import { FaqList } from '@/components/FaqList'
 import { RingDivider } from '@/components/RingDivider'
+import { CtaRow, CallOut } from '@/components/CtaRow'
+import { PHOTOS, type Photo } from '@/content/photos'
+import type { ServiceSlug } from '@/site.config'
 import type { Service } from '@/content/services'
 import { CITY_STATE, SITE, TEL_HREF } from '@/site.config'
+
+/**
+ * Which of the client's own photos genuinely shows which service. A photo is only
+ * placed where it actually depicts that work; where nothing matches, PhotoSlot
+ * falls back to the end-grain panel rather than borrowing an unrelated shot.
+ *
+ * `extra` is the storm before/after pair: the same daycare playground with the
+ * pine across the roof, then cleared.
+ */
+const SERVICE_PHOTOS: Record<ServiceSlug, { main: Photo; extra?: Photo }> = {
+  'tree-removal': { main: PHOTOS.treeRemoval },
+  'tree-trimming': { main: PHOTOS.treeTrimming },
+  'stump-grinding': { main: PHOTOS.stumpGrinding },
+  'storm-damage-cleanup': { main: PHOTOS.stormDown, extra: PHOTOS.stormCleared },
+}
 
 /**
  * One renderer for all four service pages. The pages themselves are three lines
@@ -16,6 +34,8 @@ import { CITY_STATE, SITE, TEL_HREF } from '@/site.config'
  * and the four pages cannot drift structurally.
  */
 export function ServicePage({ service }: { service: Service }) {
+  const photos = SERVICE_PHOTOS[service.slug]
+
   return (
     <>
       <PageHero
@@ -46,7 +66,7 @@ export function ServicePage({ service }: { service: Service }) {
           </div>
 
           <div className="lg:col-span-2">
-            <PhotoSlot alt={service.photoAlt} />
+            <PhotoSlot photo={photos.main} alt={service.photoAlt} />
             <div className="card mt-6">
               <h2 className="font-display text-xl font-bold uppercase tracking-tight">
                 Free estimate, in person
@@ -65,6 +85,26 @@ export function ServicePage({ service }: { service: Service }) {
           </div>
         </div>
       </Section>
+
+      {/* Before / after band. Only storm cleanup has a genuine pair. */}
+      {photos.extra && (
+        <Section tone="dim" labelledBy={`ba-${service.slug}`}>
+          <Reveal>
+            <p className="eyebrow">On the job</p>
+            <h2 id={`ba-${service.slug}`} className="h-section mt-3">
+              Same playground, before and after
+            </h2>
+          </Reveal>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+            <Reveal>
+              <PhotoSlot photo={photos.main} sizes="(min-width: 640px) 45vw, 100vw" />
+            </Reveal>
+            <Reveal delay={80}>
+              <PhotoSlot photo={photos.extra} sizes="(min-width: 640px) 45vw, 100vw" />
+            </Reveal>
+          </div>
+        </Section>
+      )}
 
       {/* When you need it */}
       <Section tone="dark" labelledBy={`when-${service.slug}`}>
@@ -112,6 +152,11 @@ export function ServicePage({ service }: { service: Service }) {
         </dl>
       </Section>
 
+      <CtaRow
+        heading={`Get a price on your ${service.noun.toLowerCase()}`}
+        sub="Free, in person, and no obligation."
+      />
+
       <Container>
         <RingDivider />
       </Container>
@@ -145,6 +190,7 @@ export function ServicePage({ service }: { service: Service }) {
           </h2>
         </Reveal>
         <FaqList faqs={service.faqs} />
+        <CallOut label="Still not sure? Ask us." />
       </Section>
 
       {/* CTA */}

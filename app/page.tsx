@@ -8,6 +8,8 @@ import { RingMark } from '@/components/RingMark'
 import { RingDivider } from '@/components/RingDivider'
 import { FaqList } from '@/components/FaqList'
 import { ReviewsSection } from '@/components/ReviewsSection'
+import { CtaRow } from '@/components/CtaRow'
+import { HERO_BACKDROP_DATA_URI } from '@/content/hero-backdrop'
 import { SERVICES } from '@/content/services'
 import { HOME_FAQS } from '@/content/faqs'
 import { JsonLd } from '@/components/JsonLd'
@@ -44,17 +46,44 @@ export default function HomePage() {
       {faq && <JsonLd data={faq} />}
 
       {/* ── HERO ───────────────────────────────────────────────────────────────
-          NO PHOTO YET, ships as the end-grain panel rather than a stock photo of
-          somebody else's crew. See public/photos/README.md. */}
-      <section className="on-bark end-grain relative overflow-hidden bg-bark text-sawdust">
+          No photo in this set is hero-grade (nothing is >=1200px wide AND tree
+          work), so rather than blow a 960px image up to full-bleed and ship
+          visible mush, the client's own crew photo goes underneath as ATMOSPHERE:
+          pre-blurred, downscaled to 640px, 8KB, under an ~82% bark wash. Low
+          resolution reads as depth instead of as a bad photo, and the H1 keeps
+          its 15.8:1 contrast because the overlay is doing the work.
+          Swap in a GBP original at 1600px+ and this becomes a real hero. */}
+      <section className="on-bark relative overflow-hidden bg-bark text-sawdust">
+        {/* Decorative, so it is a CSS background rather than an <img>: as an
+            image element it became the LCP and cost a request for pixels sitting
+            under a blur and an 82% wash. Inlined, it costs no request at all. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url("${HERO_BACKDROP_DATA_URI}")` }}
+        />
+        {/* Bark wash. Two layers: a flat floor so contrast never depends on what
+            is behind a given word, and a gradient that deepens toward the text. */}
+        <div className="pointer-events-none absolute inset-0 bg-bark/[0.74]" aria-hidden="true" />
+        {/* Gradient is heaviest on the left, where the H1 and trust strip sit, and
+            lightest on the right, where the photo is allowed to show through. The
+            text never depends on the gradient alone: the flat 74% floor above
+            already carries the contrast. */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bark via-bark/85 to-bark/35"
+          aria-hidden="true"
+        />
+        <div className="end-grain pointer-events-none absolute inset-0 opacity-25" aria-hidden="true" />
+
         <RingMark
           variant="field"
-          className="pointer-events-none absolute -right-24 -top-16 h-[34rem] w-[34rem] text-sawdust/[0.07] sm:-right-20 lg:right-[-6rem] lg:h-[44rem] lg:w-[44rem]"
+          className="pointer-events-none absolute -right-24 -top-16 h-[34rem] w-[34rem] animate-ringDrift text-sawdust/[0.07] sm:-right-20 lg:right-[-6rem] lg:h-[44rem] lg:w-[44rem]"
         />
 
         <Container className="relative py-16 sm:py-24 lg:py-32">
+          {/* Entrance stagger, ~80ms apart. transform + opacity only. */}
           <div className="max-w-3xl">
-            <p className="eyebrow-dark">{CITY_STATE}</p>
+            <p className="eyebrow-dark animate-heroIn">{CITY_STATE}</p>
 
             {/* Ampersand, not "and", one step shorter on a 375px screen while
                 keeping the full search phrase intact. The <title> keeps "and",
@@ -62,16 +91,25 @@ export default function HomePage() {
                 text-3xl is a MOBILE-ONLY step down from the h-display default:
                 at text-4xl this still wrapped to four lines at 375px and pushed
                 the call button toward the fold. sm: and lg: are unchanged. */}
-            <h1 className="mt-4 font-display text-3xl font-extrabold uppercase leading-[1.0] tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            <h1
+              className="mt-4 animate-heroIn font-display text-3xl font-extrabold uppercase leading-[1.0] tracking-tight text-balance sm:text-5xl lg:text-6xl"
+              style={{ animationDelay: '80ms' }}
+            >
               Tree removal, trimming &amp; stump grinding in {CITY_STATE}
             </h1>
 
-            <p className="prose-body mt-6 text-lg text-sawdust-muted">
+            <p
+              className="prose-body mt-6 animate-heroIn text-lg text-sawdust-muted"
+              style={{ animationDelay: '160ms' }}
+            >
               Fair price, straight answer on when we can get there, and we rake up the
               sawdust before we leave.
             </p>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div
+              className="mt-9 flex animate-heroIn flex-col gap-3 sm:flex-row"
+              style={{ animationDelay: '240ms' }}
+            >
               <a href={TEL_HREF} data-cta="call" className="btn-primary">
                 <Phone className="h-5 w-5" aria-hidden="true" />
                 Call {SITE.phoneDisplay}
@@ -82,7 +120,10 @@ export default function HomePage() {
             </div>
 
             {/* TRUE ITEMS ONLY, each gated on site.config.ts. */}
-            <ul className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-sawdust-muted">
+            <ul
+              className="mt-10 flex animate-heroIn flex-wrap gap-x-7 gap-y-3 text-sawdust-muted"
+              style={{ animationDelay: '320ms' }}
+            >
               {SITE.freeEstimates && <TrustItem>Free estimates</TrustItem>}
               {SITE.serviceAreas.length > 0 && (
                 <TrustItem>
@@ -113,15 +154,18 @@ export default function HomePage() {
             <Reveal as="li" key={service.slug} delay={i * 70}>
               <Link
                 href={`/${service.slug}`}
-                className="group flex h-full flex-col rounded-lg border border-sawdust-dim bg-white/60 p-6 transition-colors hover:border-blaze"
+                className="lift group flex h-full flex-col rounded-lg border border-sawdust-dim bg-white/60 p-6 hover:border-blaze"
               >
                 <RingMark className="h-8 w-8 text-moss transition-colors group-hover:text-blaze" />
                 <h3 className="mt-4 font-display text-xl font-bold uppercase tracking-tight">
                   {service.label}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">{service.summary}</p>
-                <span className="mt-4 font-display text-sm font-bold uppercase tracking-wide text-moss group-hover:text-blaze">
-                  More on {service.label.toLowerCase()} &rarr;
+                <span className="mt-4 font-display text-sm font-bold uppercase tracking-wide text-moss transition-colors group-hover:text-blaze">
+                  More on {service.label.toLowerCase()}{' '}
+                  <span className="card-arrow" aria-hidden="true">
+                    &rarr;
+                  </span>
                 </span>
               </Link>
             </Reveal>
@@ -171,6 +215,11 @@ export default function HomePage() {
           ))}
         </ol>
       </Section>
+
+      <CtaRow
+        heading="Want a price on your tree?"
+        sub="Free estimate, done in person, no obligation."
+      />
 
       {/* ── WHY CREWS ──────────────────────────────────────────────────────────
           The business's own claims, stated plainly in its own voice. These are
