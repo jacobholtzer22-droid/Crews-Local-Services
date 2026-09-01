@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { PageHero } from '@/components/PageHero'
 import { Section } from '@/components/Section'
 import { PhotoSlot } from '@/components/PhotoSlot'
+import { PHOTOS } from '@/content/photos'
 import { Container } from '@/components/Container'
 import { CITY_STATE, SITE, TEL_HREF } from '@/site.config'
 import { JsonLd } from '@/components/JsonLd'
@@ -74,10 +75,7 @@ export default function Page() {
           </div>
 
           <div className="lg:col-span-2">
-            {/* TODO: photo of Brandon or the crew, see public/photos/README.md */}
-            <PhotoSlot
-              alt={`${SITE.owner}, owner of ${SITE.legalName}, on a job in ${CITY_STATE}`}
-            />
+            <PhotoSlot photo={PHOTOS.aboutOwner} />
           </div>
         </div>
       </Section>

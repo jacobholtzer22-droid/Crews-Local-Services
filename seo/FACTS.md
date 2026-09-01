@@ -104,7 +104,41 @@ from — not invented benefits:
 
 | Fact | Status | Note |
 |---|---|---|
-| `public/photos/` | **EMPTY — TODO** | Zero photos supplied. **No stock photos of other people's crews, trucks or trees, ever.** The hero and every service page ship with the `.end-grain` textured panel instead. Drop Brandon's real GBP photos into `public/photos/` and swap the panels for `next/image` with explicit width/height. The hero is weak until this happens — it is the single highest-value outstanding item after the slug. |
+| `public/photos/` | **PLACED, from the client's own listings** | Seven WebP files, all derived from the client's own published photos on their Yahoo and Networx listings. **No stock photos of other people's crews, trucks or trees, ever.** Provenance table below. These are listing-resolution (640 to 1000px); swap in the Google Business Profile originals at launch, using the table to match them up. |
+
+### Photo provenance
+
+Every placed photo, where it appears, and the URL it came from. All are the
+client's own published images, downloaded 2026-09-01.
+
+| File in `public/photos/` | Placed on | Source URL |
+|---|---|---|
+| `hero-crew-on-stump.webp` | Home hero, blurred backdrop only | `s.yimg.com/bj/68c5/68c5e666681320eea169c5b915c92a68.jpg` |
+| `tree-removal-bucking-trunk.webp` | `/tree-removal` | `s.yimg.com/bj/a81d/a81db2a5ca02eb382e007a30761a2d58.jpg` |
+| `tree-trimming-brush-cleared.webp` | `/tree-trimming` | `s.yimg.com/bj/536c/536c025b75ddc5a8d0ecfbfaf8d82f32.jpg` |
+| `stump-grinding-fresh-stump.webp` | `/stump-grinding` | `s.yimg.com/bj/68c5/68c5e666681320eea169c5b915c92a68.jpg` |
+| `storm-pine-down-playground.webp` | `/storm-damage-cleanup`, before | `s.yimg.com/bj/cf69/cf69b09b96b583f7f920bddab3870ce6.jpg` |
+| `storm-playground-cleared.webp` | `/storm-damage-cleanup`, after | `s.yimg.com/bj/7f83/7f83ad74eebaa0524ba070099133f231.jpg` |
+| `about-crew-bucking-hardwood.webp` | `/about` | `s.yimg.com/bj/536a/536a0268202c4ebb437d54309a17bdb3.jpg` |
+
+**Notes for launch:**
+
+- **No photo in the supplied set was hero-grade.** Nothing was 1200px+ wide AND tree
+  work, so the hero uses the crew-on-stump shot as a pre-blurred, heavily darkened
+  backdrop (8KB) rather than upscaling a 960px image into visible mush. A GBP
+  original at 1600px+ makes this a real hero: replace the file and its dimensions
+  in `content/photos.ts`, nothing else changes.
+- **`about-crew-bucking-hardwood.webp` was rotated and levelled.** The source had no
+  EXIF orientation tag and was stored 90 degrees off with a further ~12 degree tilt.
+  Corrected to 78 degrees with a centre crop, verified corner by corner so no black
+  rotation wedge survives.
+- **Five supplied photos were rejected and are not on the site:** three show deck and
+  porch carpentry rather than tree work, one shows a house with a legible street
+  number, and one Networx file is a cabin exterior.
+- **`public/photos/reference/` holds two files placed nowhere:** the Networx cabin
+  photo, and the Networx file expected to be the client's logo, which is in fact a
+  duplicate of the crew-on-stump photo. **There is no logo in the supplied set**, so
+  the site keeps its built identity by default rather than by decision.
 
 ## Tracking
 
