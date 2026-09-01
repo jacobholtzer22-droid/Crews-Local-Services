@@ -13,18 +13,19 @@ call the site makes is the browser POST from the estimate form.
 - Brand assets generated from the ring mark: logo, OG image, favicon, apple icon
 - Lighthouse mobile: perf 96, a11y 100, best practices 100, SEO 100, CLS 0
 
-## ⛔ Two blockers — the build REFUSES to succeed until both are fixed
+## ⛔ Two blockers — a PRODUCTION deploy cannot succeed until both are fixed
 
-`npm run verify` runs as `postbuild`, so Vercel cannot deploy past these:
+`npm run verify` runs as `postbuild`. It warns and exits 0 locally and on preview deploys,
+and fails the build only when `VERCEL_ENV=production`, so neither of these reaches a customer:
 
 1. **`SITE.businessSlug` is empty.** No Crews row exists in the Align and Acquire CRM
-   (verified by direct query, 2026-08-30). Create the Business row, copy the slug
+   (verified by direct query, 2026-08-30). Create the Business row and copy the slug
    character-for-character into `site.config.ts`. Without it the form refuses to submit.
 2. **`SITE.url` is `https://TODO.example.com`.** Set the real domain (with `www`).
 
 ## Commands
 
-    npm run dev / build / start     # build includes the verify gate (fails until blockers fixed)
+    npm run dev / build / start     # build runs the verify gate (see above)
     npm run verify                  # the gate on its own
     npm run contrast                # WCAG check, 18 pairs
     npm run typecheck / lint
@@ -54,17 +55,16 @@ about material leaving the site. `seo/FACTS.md` lists every affected string.
 ## Where to drop things
 
 - **Photos** → `public/photos/`. Real photos only, never stock. Until then every photo slot
-  renders the end-grain panel and the hero is weak — highest-value item after the blockers.
-  Swap `PhotoSlot` for `next/image` with explicit width/height (protects CLS); alt text is
-  already written in `content/services.ts`.
+  renders the end-grain panel and the hero is weak: highest-value item after the blockers.
+  Swap `PhotoSlot` for `next/image` with explicit width/height (CLS); alt text already written.
 - **Google reviews** → `content/reviews.ts`, verbatim, first name + source. The section
   renders nothing while empty — no fallback, by design. **Never add Review or
   AggregateRating schema**; self-serving review markup breaks Google's guidelines.
 
 ## Deliberate decisions, not omissions
 
-- **No Turnstile.** Platform-level: no form on any Align and Acquire client site emits a
-  token and the keys are absent from production, so a widget here would be dead weight.
+- **No Turnstile.** Platform-level: no client site emits a token and the keys are absent
+  from production, so a widget here is dead weight.
 - **No per-town pages.** Ten near-identical pages differing by a swapped town name is thin
   content and a liability. Revisit only with genuinely town-specific material.
 - **No secondary services** (mowing, gutters, snow, junk removal — all on Networx): the
