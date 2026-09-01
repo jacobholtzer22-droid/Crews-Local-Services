@@ -5,6 +5,7 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { MobileCtaBar } from '@/components/MobileCtaBar'
 import { JsonLd } from '@/components/JsonLd'
 import { siteGraph } from '@/lib/schema'
+import { IS_LAUNCH_READY } from '@/lib/launch-state'
 import { CITY_STATE, SITE } from '@/site.config'
 import './globals.css'
 
@@ -48,6 +49,13 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image' },
+  /**
+   * A build without the real domain has TODO.example.com in every canonical, OG
+   * URL and schema @id. It is safe to look at and unsafe to index, so until the
+   * domain and CRM slug are set the whole site is noindex. Set them and this
+   * flips to indexable automatically. See lib/launch-state.ts.
+   */
+  ...(IS_LAUNCH_READY ? {} : { robots: { index: false, follow: false } }),
 }
 
 export const viewport: Viewport = {

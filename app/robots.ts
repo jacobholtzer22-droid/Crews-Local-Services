@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { abs } from '@/lib/schema'
+import { IS_LAUNCH_READY } from '@/lib/launch-state'
 
 /**
  * AI answer engines are named explicitly and allowed.
@@ -30,6 +31,12 @@ const AI_AGENTS = [
 ]
 
 export default function robots(): MetadataRoute.Robots {
+  // Not launch-ready means the canonicals still point at a placeholder host.
+  // Viewable by link, closed to crawlers, until the real domain is set.
+  if (!IS_LAUNCH_READY) {
+    return { rules: [{ userAgent: '*', disallow: '/' }] }
+  }
+
   return {
     rules: [
       { userAgent: '*', allow: '/' },

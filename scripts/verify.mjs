@@ -12,19 +12,23 @@
  *                           and the fake schema types other tree sites emit
  *   4. Outstanding TODOs  — reported, not failed
  *
- * ⛔ THIS IS A PRODUCTION DEPLOY GATE. It runs as `postbuild`, so it is part of
- * `npm run build`, which is what Vercel runs.
+ * ⛔ PRODUCTION QUALITY GATE. Runs as `postbuild`, part of `npm run build`,
+ * which is what Vercel runs. Fails the build only on a Vercel PRODUCTION deploy.
  *
- * It only ever FAILS the build on a Vercel PRODUCTION deploy
- * (process.env.VERCEL_ENV === 'production'). Locally and on preview deploys it
- * prints the identical report with FAIL relabelled WARN, and exits 0.
+ * WHAT BLOCKS PRODUCTION: defects. A missing title or H1, a banned or invented
+ * schema type, an FAQ in the schema that is not on the page, a schema phone that
+ * disagrees with site.config.ts, an unearned claim like "insured" or "24/7",
+ * leftover placeholder copy. All of these are WRONG, and none is visible by
+ * looking at the deployed page, which is why only a build failure catches them.
  *
- * Why the split: the two gated conditions are invisible on the rendered page, so
- * only a build failure catches them before they reach a customer. But blocking
- * every local build and every preview deploy on facts we are still waiting for
- * from the client makes the site impossible to work on and impossible to show
- * anyone, and a gate people route around stops being a gate. Preview keeps the
- * warning loud; production keeps the refusal absolute.
+ * WHAT DOES NOT BLOCK: the two missing launch facts, the CRM slug and the real
+ * domain. Those are not defects, they are facts we are waiting on, and the client
+ * needs to see the site on a real URL before they arrive.
+ *
+ * They are not ignored either. A build missing them is NOT LAUNCH-READY and ships
+ * `noindex` plus a disallow-all robots.txt (lib/launch-state.ts), so it is
+ * viewable by link and invisible to search. The danger was never the deploy, it
+ * was Google indexing TODO.example.com.
  */
 import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
@@ -231,7 +235,7 @@ for (const r of schemaTable) {
 }
 
 // ──────────────────────────────────────────────────────── 3. FORBIDDEN STRINGS ──
-console.log('\n=== 3. FORBIDDEN STRINGS + DEPLOY GATES ===\n')
+console.log('\n=== 3. FORBIDDEN STRINGS ===\n')
 
 const forbidden = [
   { re: /\blicensed\b/i, why: 'Michigan does not license tree services' },
@@ -274,28 +278,21 @@ for (const row of rows) {
     }
   }
 }
-// ── DEPLOY GATES ───────────────────────────────────────────────────────────
-// Two conditions that must never reach production. Both are invisible on the
-// rendered page, so nothing but a build failure catches them.
-
-// 1. Empty CRM slug. lib/submit-estimate.ts refuses to POST without it, so the
-//    form fails closed rather than losing leads silently — but a site whose only
-//    conversion path is a dead form should not deploy at all.
+// ── LAUNCH READINESS (reported, never blocking) ────────────────────────────
+// Missing facts, not defects. They do not stop a deploy; they stop the site
+// being INDEXABLE, which is enforced in code by lib/launch-state.ts.
+const notLaunchReady = []
 if (!cfgStr('businessSlug')) {
-  fail(
-    'SITE.businessSlug is EMPTY. The estimate form cannot submit, so the site has no working ' +
-      'lead path. Create the Business row in the Align and Acquire CRM and set the slug in site.config.ts.',
+  notLaunchReady.push(
+    'SITE.businessSlug is EMPTY. The estimate form refuses to submit and shows the phone number ' +
+      'instead, so no lead is lost silently, but there is no working form until the CRM row exists.',
   )
 }
-
-// 2. Placeholder domain, reported once with its blast radius rather than once
-//    per page. Shipping it puts a dead hostname into every canonical, every OG
-//    image URL and every schema @id on the site.
 const placeholderPages = rows.filter((r) => r.html.includes('TODO.example.com'))
 if (placeholderPages.length > 0) {
-  fail(
-    `placeholder domain "https://TODO.example.com" appears in ${placeholderPages.length}/${rows.length} pages ` +
-      `(canonicals, OG image URLs, schema @id, sitemap, llms.txt). Set SITE.url in site.config.ts.`,
+  notLaunchReady.push(
+    `placeholder domain "https://TODO.example.com" in ${placeholderPages.length}/${rows.length} pages ` +
+      `(canonicals, OG image URLs, schema @id, sitemap, llms.txt).`,
   )
 }
 
@@ -303,7 +300,16 @@ if (forbiddenHits === 0)
   pass(`0 forbidden strings across ${rows.length} pages (${forbidden.length} patterns)`)
 
 // ─────────────────────────────────────────────────────────────── 4. TODO LIST ──
-console.log('\n=== 4. OUTSTANDING TODO / CONFIRM (reported, not failed) ===\n')
+console.log('\n=== 4. LAUNCH READINESS ===\n')
+if (notLaunchReady.length === 0) {
+  console.log('  LAUNCH-READY: slug and domain are both set. The site is indexable.')
+} else {
+  console.log('  ** NOT LAUNCH-READY **  This build ships noindex + a disallow-all robots.txt,')
+  console.log('  so it is viewable by link and invisible to search. Deploying it is fine.')
+  for (const r of notLaunchReady) console.log('    - ' + r)
+}
+
+console.log('\n=== 5. OUTSTANDING TODO / CONFIRM (reported, not failed) ===\n')
 
 const openItems = []
 if (!cfgStr('businessSlug')) openItems.push(['BLOCKER', 'businessSlug is empty', 'site.config.ts → lib/submit-estimate.ts refuses to submit'])
